@@ -11,6 +11,7 @@
 /[Kk]eys/
 /[Tt]rash
 /Logs/
+venv
 
 #new
 */Library/

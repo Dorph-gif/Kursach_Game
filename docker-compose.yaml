@@ -1,0 +1,56 @@
+version: '3.8'
+
+services:
+  knowlege_db:
+    image: postgres:14
+    restart: always
+    environment:
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: knowlege_db
+    ports:
+      - "5433:5432"
+    volumes:
+      - knowlege_db_data:/var/lib/postgresql/data
+
+  users_db:
+    image: postgres:14
+    restart: always
+    environment:
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: users_db
+    ports:
+      - "5434:5432"
+    volumes:
+      - users_db_data:/var/lib/postgresql/data
+
+  user_service:
+    build:
+      context: .
+      dockerfile: backend/authorization/Dockerfile
+    restart: always
+    ports:
+      - "8000:8000"
+    depends_on:
+      users_db:
+        condition: service_started
+    volumes:
+      - ./logs:/app/logs
+
+  knowlege_service:
+    build:
+      context: .
+      dockerfile: backend/knowlege/Dockerfile
+    restart: always
+    ports:
+      - "8005:8005"
+    depends_on:
+      knowlege_db:
+        condition: service_started
+    volumes:
+      - ./logs:/app/logs
+
+volumes:
+  knowlege_db_data:
+  users_db_data:

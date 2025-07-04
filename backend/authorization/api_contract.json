@@ -1,0 +1,824 @@
+{
+    "openapi": "3.1.0",
+    "info": {
+      "title": "FastAPI",
+      "version": "0.1.0"
+    },
+    "paths": {
+      "/api/auth/login": {
+        "get": {
+          "summary": "Login",
+          "operationId": "login_api_auth_login_get",
+          "responses": {
+            "200": {
+              "description": "Successful Response",
+              "content": {
+                "application/json": {
+                  "schema": {
+  
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/api/auth/callback": {
+        "get": {
+          "summary": "Callback",
+          "operationId": "callback_api_auth_callback_get",
+          "parameters": [
+            {
+              "name": "code",
+              "in": "query",
+              "required": true,
+              "schema": {
+                "type": "string",
+                "title": "Code"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Successful Response",
+              "content": {
+                "application/json": {
+                  "schema": {
+  
+                  }
+                }
+              }
+            },
+            "422": {
+              "description": "Validation Error",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/HTTPValidationError"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/api/auth/refresh": {
+        "post": {
+          "summary": "Refresh",
+          "operationId": "refresh_api_auth_refresh_post",
+          "parameters": [
+            {
+              "name": "refresh_token",
+              "in": "cookie",
+              "required": false,
+              "schema": {
+                "type": "string",
+                "title": "Refresh Token"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Successful Response",
+              "content": {
+                "application/json": {
+                  "schema": {
+  
+                  }
+                }
+              }
+            },
+            "422": {
+              "description": "Validation Error",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/HTTPValidationError"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/api/users/": {
+        "post": {
+          "summary": "Create User",
+          "operationId": "create_user_api_users__post",
+          "requestBody": {
+            "required": true,
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/User"
+                }
+              }
+            }
+          },
+          "responses": {
+            "201": {
+              "description": "Successful Response",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/UserRead"
+                  }
+                }
+              }
+            },
+            "422": {
+              "description": "Validation Error",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/HTTPValidationError"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "get": {
+          "summary": "Get Users",
+          "operationId": "get_users_api_users__get",
+          "parameters": [
+            {
+              "name": "name",
+              "in": "query",
+              "required": false,
+              "schema": {
+                "anyOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "title": "Name"
+              }
+            },
+            {
+              "name": "surname",
+              "in": "query",
+              "required": false,
+              "schema": {
+                "anyOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "title": "Surname"
+              }
+            },
+            {
+              "name": "patronymic",
+              "in": "query",
+              "required": false,
+              "schema": {
+                "anyOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "title": "Patronymic"
+              }
+            },
+            {
+              "name": "email",
+              "in": "query",
+              "required": false,
+              "schema": {
+                "anyOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "title": "Email"
+              }
+            },
+            {
+              "name": "phone",
+              "in": "query",
+              "required": false,
+              "schema": {
+                "anyOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "title": "Phone"
+              }
+            },
+            {
+              "name": "telegram_link",
+              "in": "query",
+              "required": false,
+              "schema": {
+                "anyOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "title": "Telegram Link"
+              }
+            },
+            {
+              "name": "post",
+              "in": "query",
+              "required": false,
+              "schema": {
+                "anyOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "title": "Post"
+              }
+            },
+            {
+              "name": "team",
+              "in": "query",
+              "required": false,
+              "schema": {
+                "anyOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "title": "Team"
+              }
+            },
+            {
+              "name": "role",
+              "in": "query",
+              "required": false,
+              "schema": {
+                "anyOf": [
+                  {
+                    "$ref": "#/components/schemas/UserRole"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "title": "Role"
+              }
+            },
+            {
+              "name": "limit",
+              "in": "query",
+              "required": false,
+              "schema": {
+                "anyOf": [
+                  {
+                    "type": "integer"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": 100,
+                "title": "Limit"
+              }
+            },
+            {
+              "name": "offset",
+              "in": "query",
+              "required": false,
+              "schema": {
+                "anyOf": [
+                  {
+                    "type": "integer"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": 0,
+                "title": "Offset"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Successful Response",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/components/schemas/UserRead"
+                    },
+                    "title": "Response Get Users Api Users  Get"
+                  }
+                }
+              }
+            },
+            "422": {
+              "description": "Validation Error",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/HTTPValidationError"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/api/users/me": {
+        "get": {
+          "summary": "Get Myself",
+          "operationId": "get_myself_api_users_me_get",
+          "responses": {
+            "200": {
+              "description": "Successful Response",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/UserRead"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "patch": {
+          "summary": "Update Current User",
+          "operationId": "update_current_user_api_users_me_patch",
+          "requestBody": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserUpdate"
+                }
+              }
+            },
+            "required": true
+          },
+          "responses": {
+            "200": {
+              "description": "Successful Response",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/UserRead"
+                  }
+                }
+              }
+            },
+            "422": {
+              "description": "Validation Error",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/HTTPValidationError"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/api/users/{user_id}": {
+        "patch": {
+          "summary": "Update User",
+          "operationId": "update_user_api_users__user_id__patch",
+          "parameters": [
+            {
+              "name": "user_id",
+              "in": "path",
+              "required": true,
+              "schema": {
+                "type": "integer",
+                "title": "User Id"
+              }
+            }
+          ],
+          "requestBody": {
+            "required": true,
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserUpdate"
+                }
+              }
+            }
+          },
+          "responses": {
+            "200": {
+              "description": "Successful Response",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/UserRead"
+                  }
+                }
+              }
+            },
+            "422": {
+              "description": "Validation Error",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/HTTPValidationError"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "get": {
+          "summary": "Get User By Id",
+          "operationId": "get_user_by_id_api_users__user_id__get",
+          "parameters": [
+            {
+              "name": "user_id",
+              "in": "path",
+              "required": true,
+              "schema": {
+                "type": "integer",
+                "title": "User Id"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Successful Response",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/UserRead"
+                  }
+                }
+              }
+            },
+            "422": {
+              "description": "Validation Error",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/HTTPValidationError"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "delete": {
+          "summary": "Delete User",
+          "operationId": "delete_user_api_users__user_id__delete",
+          "parameters": [
+            {
+              "name": "user_id",
+              "in": "path",
+              "required": true,
+              "schema": {
+                "type": "integer",
+                "title": "User Id"
+              }
+            }
+          ],
+          "responses": {
+            "204": {
+              "description": "Successful Response"
+            },
+            "422": {
+              "description": "Validation Error",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/HTTPValidationError"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "components": {
+      "schemas": {
+        "HTTPValidationError": {
+          "properties": {
+            "detail": {
+              "items": {
+                "$ref": "#/components/schemas/ValidationError"
+              },
+              "type": "array",
+              "title": "Detail"
+            }
+          },
+          "type": "object",
+          "title": "HTTPValidationError"
+        },
+        "User": {
+          "properties": {
+            "name": {
+              "type": "string",
+              "title": "Name"
+            },
+            "surname": {
+              "type": "string",
+              "title": "Surname"
+            },
+            "patronymic": {
+              "type": "string",
+              "title": "Patronymic"
+            },
+            "email": {
+              "type": "string",
+              "title": "Email"
+            },
+            "phone": {
+              "type": "string",
+              "title": "Phone"
+            },
+            "telegram_link": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Telegram Link"
+            },
+            "post": {
+              "type": "string",
+              "title": "Post"
+            },
+            "team": {
+              "type": "string",
+              "title": "Team"
+            },
+            "role": {
+              "$ref": "#/components/schemas/UserRole"
+            },
+            "status": {
+              "$ref": "#/components/schemas/UserStatus",
+              "default": "inactive"
+            }
+          },
+          "type": "object",
+          "required": [
+            "name",
+            "surname",
+            "patronymic",
+            "email",
+            "phone",
+            "post",
+            "team",
+            "role"
+          ],
+          "title": "User"
+        },
+        "UserRead": {
+          "properties": {
+            "name": {
+              "type": "string",
+              "title": "Name"
+            },
+            "surname": {
+              "type": "string",
+              "title": "Surname"
+            },
+            "patronymic": {
+              "type": "string",
+              "title": "Patronymic"
+            },
+            "email": {
+              "type": "string",
+              "title": "Email"
+            },
+            "phone": {
+              "type": "string",
+              "title": "Phone"
+            },
+            "telegram_link": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Telegram Link"
+            },
+            "post": {
+              "type": "string",
+              "title": "Post"
+            },
+            "team": {
+              "type": "string",
+              "title": "Team"
+            },
+            "role": {
+              "$ref": "#/components/schemas/UserRole"
+            },
+            "status": {
+              "$ref": "#/components/schemas/UserStatus",
+              "default": "inactive"
+            },
+            "id": {
+              "type": "integer",
+              "title": "Id"
+            }
+          },
+          "type": "object",
+          "required": [
+            "name",
+            "surname",
+            "patronymic",
+            "email",
+            "phone",
+            "post",
+            "team",
+            "role",
+            "id"
+          ],
+          "title": "UserRead"
+        },
+        "UserRole": {
+          "type": "string",
+          "enum": [
+            "admin",
+            "editor",
+            "user",
+            "guest"
+          ],
+          "title": "UserRole"
+        },
+        "UserStatus": {
+          "type": "string",
+          "enum": [
+            "active",
+            "busy",
+            "inactive"
+          ],
+          "title": "UserStatus"
+        },
+        "UserUpdate": {
+          "properties": {
+            "name": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Name"
+            },
+            "surname": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Surname"
+            },
+            "patronymic": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Patronymic"
+            },
+            "phone": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Phone"
+            },
+            "telegram_link": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Telegram Link"
+            },
+            "post": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Post"
+            },
+            "team": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Team"
+            },
+            "role": {
+              "anyOf": [
+                {
+                  "$ref": "#/components/schemas/UserRole"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            }
+          },
+          "type": "object",
+          "required": [
+            "name",
+            "surname",
+            "patronymic",
+            "phone",
+            "telegram_link",
+            "post",
+            "team",
+            "role"
+          ],
+          "title": "UserUpdate"
+        },
+        "ValidationError": {
+          "properties": {
+            "loc": {
+              "items": {
+                "anyOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "integer"
+                  }
+                ]
+              },
+              "type": "array",
+              "title": "Location"
+            },
+            "msg": {
+              "type": "string",
+              "title": "Message"
+            },
+            "type": {
+              "type": "string",
+              "title": "Error Type"
+            }
+          },
+          "type": "object",
+          "required": [
+            "loc",
+            "msg",
+            "type"
+          ],
+          "title": "ValidationError"
+        }
+      }
+    }
+  }
