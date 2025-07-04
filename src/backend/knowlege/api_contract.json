@@ -1,0 +1,658 @@
+{
+    "openapi": "3.1.0",
+    "info": {
+      "title": "FastAPI",
+      "version": "0.1.0"
+    },
+    "paths": {
+      "/api/knowledge": {
+        "post": {
+          "summary": "Create Article Endpoint",
+          "operationId": "create_article_endpoint_api_knowledge_post",
+          "requestBody": {
+            "required": true,
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ArticleCreate"
+                }
+              }
+            }
+          },
+          "responses": {
+            "201": {
+              "description": "Successful Response",
+              "content": {
+                "application/json": {
+                  "schema": {
+  
+                  }
+                }
+              }
+            },
+            "422": {
+              "description": "Validation Error",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/HTTPValidationError"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "get": {
+          "summary": "Get Articles By Category Endpoint",
+          "operationId": "get_articles_by_category_endpoint_api_knowledge_get",
+          "parameters": [
+            {
+              "name": "category",
+              "in": "query",
+              "required": true,
+              "schema": {
+                "type": "string",
+                "description": "Название категории",
+                "title": "Category"
+              },
+              "description": "Название категории"
+            },
+            {
+              "name": "limit",
+              "in": "query",
+              "required": false,
+              "schema": {
+                "type": "integer",
+                "maximum": 100,
+                "minimum": 1,
+                "description": "Сколько статей вернуть",
+                "default": 10,
+                "title": "Limit"
+              },
+              "description": "Сколько статей вернуть"
+            },
+            {
+              "name": "offset",
+              "in": "query",
+              "required": false,
+              "schema": {
+                "type": "integer",
+                "minimum": 0,
+                "description": "Сдвиг для пагинации",
+                "default": 0,
+                "title": "Offset"
+              },
+              "description": "Сдвиг для пагинации"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Successful Response",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/components/schemas/ArticleShortRead"
+                    },
+                    "title": "Response Get Articles By Category Endpoint Api Knowledge Get"
+                  }
+                }
+              }
+            },
+            "422": {
+              "description": "Validation Error",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/HTTPValidationError"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/api/knowledge/{article_id}": {
+        "get": {
+          "summary": "Get Article Endpoint",
+          "operationId": "get_article_endpoint_api_knowledge__article_id__get",
+          "parameters": [
+            {
+              "name": "article_id",
+              "in": "path",
+              "required": true,
+              "schema": {
+                "type": "integer",
+                "title": "Article Id"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Successful Response",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/ArticleRead"
+                  }
+                }
+              }
+            },
+            "422": {
+              "description": "Validation Error",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/HTTPValidationError"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "delete": {
+          "summary": "Delete Article",
+          "operationId": "delete_article_api_knowledge__article_id__delete",
+          "parameters": [
+            {
+              "name": "article_id",
+              "in": "path",
+              "required": true,
+              "schema": {
+                "type": "integer",
+                "title": "Article Id"
+              }
+            }
+          ],
+          "responses": {
+            "204": {
+              "description": "Successful Response"
+            },
+            "422": {
+              "description": "Validation Error",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/HTTPValidationError"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/api/knowledge/{article_id}/info": {
+        "patch": {
+          "summary": "Update Article Info Endpoint",
+          "operationId": "update_article_info_endpoint_api_knowledge__article_id__info_patch",
+          "parameters": [
+            {
+              "name": "article_id",
+              "in": "path",
+              "required": true,
+              "schema": {
+                "type": "integer",
+                "title": "Article Id"
+              }
+            }
+          ],
+          "requestBody": {
+            "required": true,
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ArticleInfoUpdate"
+                }
+              }
+            }
+          },
+          "responses": {
+            "200": {
+              "description": "Successful Response",
+              "content": {
+                "application/json": {
+                  "schema": {
+  
+                  }
+                }
+              }
+            },
+            "422": {
+              "description": "Validation Error",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/HTTPValidationError"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/api/knowledge/{article_id}/blocks": {
+        "put": {
+          "summary": "Update Article Blocks Endpoint",
+          "operationId": "update_article_blocks_endpoint_api_knowledge__article_id__blocks_put",
+          "parameters": [
+            {
+              "name": "article_id",
+              "in": "path",
+              "required": true,
+              "schema": {
+                "type": "integer",
+                "title": "Article Id"
+              }
+            }
+          ],
+          "requestBody": {
+            "required": true,
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ArticleBlocksUpdate"
+                }
+              }
+            }
+          },
+          "responses": {
+            "200": {
+              "description": "Successful Response",
+              "content": {
+                "application/json": {
+                  "schema": {
+  
+                  }
+                }
+              }
+            },
+            "422": {
+              "description": "Validation Error",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/HTTPValidationError"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/api/knowledge/blocks/{block_id}": {
+        "put": {
+          "summary": "Update Article Block Endpoint",
+          "operationId": "update_article_block_endpoint_api_knowledge_blocks__block_id__put",
+          "parameters": [
+            {
+              "name": "block_id",
+              "in": "path",
+              "required": true,
+              "schema": {
+                "type": "integer",
+                "title": "Block Id"
+              }
+            }
+          ],
+          "requestBody": {
+            "required": true,
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ArticleBlockUpdate"
+                }
+              }
+            }
+          },
+          "responses": {
+            "200": {
+              "description": "Successful Response",
+              "content": {
+                "application/json": {
+                  "schema": {
+  
+                  }
+                }
+              }
+            },
+            "422": {
+              "description": "Validation Error",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/HTTPValidationError"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "delete": {
+          "summary": "Delete Article Block",
+          "operationId": "delete_article_block_api_knowledge_blocks__block_id__delete",
+          "parameters": [
+            {
+              "name": "block_id",
+              "in": "path",
+              "required": true,
+              "schema": {
+                "type": "integer",
+                "title": "Block Id"
+              }
+            }
+          ],
+          "responses": {
+            "204": {
+              "description": "Successful Response"
+            },
+            "422": {
+              "description": "Validation Error",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/HTTPValidationError"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "components": {
+      "schemas": {
+        "ArticleBlockCreate": {
+          "properties": {
+            "block_type": {
+              "$ref": "#/components/schemas/BlockType"
+            },
+            "content": {
+              "type": "string",
+              "title": "Content"
+            },
+            "position": {
+              "type": "integer",
+              "title": "Position"
+            }
+          },
+          "type": "object",
+          "required": [
+            "block_type",
+            "content",
+            "position"
+          ],
+          "title": "ArticleBlockCreate"
+        },
+        "ArticleBlockRead": {
+          "properties": {
+            "id": {
+              "type": "integer",
+              "title": "Id"
+            },
+            "block_type": {
+              "$ref": "#/components/schemas/BlockType"
+            },
+            "content": {
+              "type": "string",
+              "title": "Content"
+            },
+            "position": {
+              "type": "integer",
+              "title": "Position"
+            }
+          },
+          "type": "object",
+          "required": [
+            "id",
+            "block_type",
+            "content",
+            "position"
+          ],
+          "title": "ArticleBlockRead"
+        },
+        "ArticleBlockUpdate": {
+          "properties": {
+            "block_type": {
+              "$ref": "#/components/schemas/BlockType"
+            },
+            "content": {
+              "type": "string",
+              "title": "Content"
+            },
+            "position": {
+              "type": "integer",
+              "title": "Position"
+            }
+          },
+          "type": "object",
+          "required": [
+            "block_type",
+            "content",
+            "position"
+          ],
+          "title": "ArticleBlockUpdate"
+        },
+        "ArticleBlocksUpdate": {
+          "properties": {
+            "blocks_data": {
+              "items": {
+                "$ref": "#/components/schemas/ArticleBlockUpdate"
+              },
+              "type": "array",
+              "title": "Blocks Data"
+            }
+          },
+          "type": "object",
+          "required": [
+            "blocks_data"
+          ],
+          "title": "ArticleBlocksUpdate"
+        },
+        "ArticleCreate": {
+          "properties": {
+            "title": {
+              "type": "string",
+              "title": "Title"
+            },
+            "description": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Description"
+            },
+            "category": {
+              "type": "string",
+              "title": "Category"
+            },
+            "blocks_data": {
+              "items": {
+                "$ref": "#/components/schemas/ArticleBlockCreate"
+              },
+              "type": "array",
+              "title": "Blocks Data"
+            }
+          },
+          "type": "object",
+          "required": [
+            "title",
+            "category",
+            "blocks_data"
+          ],
+          "title": "ArticleCreate"
+        },
+        "ArticleInfoUpdate": {
+          "properties": {
+            "title": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Title"
+            },
+            "description": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Description"
+            },
+            "category": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Category"
+            }
+          },
+          "type": "object",
+          "title": "ArticleInfoUpdate"
+        },
+        "ArticleRead": {
+          "properties": {
+            "id": {
+              "type": "integer",
+              "title": "Id"
+            },
+            "title": {
+              "type": "string",
+              "title": "Title"
+            },
+            "description": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Description"
+            },
+            "category": {
+              "type": "string",
+              "title": "Category"
+            },
+            "blocks_data": {
+              "items": {
+                "$ref": "#/components/schemas/ArticleBlockRead"
+              },
+              "type": "array",
+              "title": "Blocks Data"
+            }
+          },
+          "type": "object",
+          "required": [
+            "id",
+            "title",
+            "description",
+            "category",
+            "blocks_data"
+          ],
+          "title": "ArticleRead"
+        },
+        "ArticleShortRead": {
+          "properties": {
+            "id": {
+              "type": "integer",
+              "title": "Id"
+            },
+            "title": {
+              "type": "string",
+              "title": "Title"
+            },
+            "description": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Description"
+            }
+          },
+          "type": "object",
+          "required": [
+            "id",
+            "title",
+            "description"
+          ],
+          "title": "ArticleShortRead"
+        },
+        "BlockType": {
+          "type": "string",
+          "enum": [
+            "text",
+            "image",
+            "video"
+          ],
+          "title": "BlockType"
+        },
+        "HTTPValidationError": {
+          "properties": {
+            "detail": {
+              "items": {
+                "$ref": "#/components/schemas/ValidationError"
+              },
+              "type": "array",
+              "title": "Detail"
+            }
+          },
+          "type": "object",
+          "title": "HTTPValidationError"
+        },
+        "ValidationError": {
+          "properties": {
+            "loc": {
+              "items": {
+                "anyOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "integer"
+                  }
+                ]
+              },
+              "type": "array",
+              "title": "Location"
+            },
+            "msg": {
+              "type": "string",
+              "title": "Message"
+            },
+            "type": {
+              "type": "string",
+              "title": "Error Type"
+            }
+          },
+          "type": "object",
+          "required": [
+            "loc",
+            "msg",
+            "type"
+          ],
+          "title": "ValidationError"
+        }
+      }
+    }
+  }
