@@ -76,7 +76,7 @@ async def refresh(
     if not token_data.get("user_id") or not token_data.get("role"):
         raise HTTPException(status_code=401, detail="Invalid token data")
 
-    new_access_token = create_access_token(user_id=token_data["user_id"], role=token_data["role"])
+    new_access_token = create_access_token(user_id=token_data["user_id"], role=token_data["role"].value)
 
     response = JSONResponse({"message": "refreshed"})
     response.set_cookie("access_token", new_access_token, httponly=True, secure=True, max_age=settings.ACCESS_TOKEN_EXPIRE_SEC)

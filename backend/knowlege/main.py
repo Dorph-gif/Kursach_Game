@@ -9,6 +9,7 @@ import os
 
 from backend.knowlege.router import router as knowledge_router
 from backend.knowlege.database.database import create_tables, delete_tables
+from backend.knowlege.middlewares import AuthMiddleware
 
 load_dotenv()
 
@@ -38,6 +39,8 @@ async def lifespan(app: FastAPI):
     logger.info("Shutting down the knowledge service...")
 
 app = FastAPI(lifespan=lifespan)
+
+app.add_middleware(AuthMiddleware)
 
 app.add_middleware(
     CORSMiddleware,

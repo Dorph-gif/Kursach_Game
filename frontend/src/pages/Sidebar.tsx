@@ -91,7 +91,7 @@ const Sidebar: React.FC = () => {
 
             {/* Кнопка База знаний для всех */}
             <button
-              onClick={() => navigate("/knowledge")}
+              onClick={() => navigate("/knowlege")}
               style={{
                 padding: "10px",
                 background: "none",

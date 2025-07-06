@@ -5,9 +5,9 @@ from jose import jwt, JWTError
 import logging
 import os
 
-from backend.authorization.config import settings
+from backend.knowlege.config import settings
 
-LOG_FILE = os.path.join("logs", "users.log")
+LOG_FILE = os.path.join("logs", "knowlege.log")
 
 logging.basicConfig(
     level=logging.INFO,

@@ -7,6 +7,8 @@ import EmployeesPage from "./pages/Emploees";
 import Layout from "./pages/Layout";
 import KnowledgePage from "./pages/KnowlegePage"
 import CreateArticlePage from "./pages/CreateArticle"
+import ArticleViewPage from "./pages/ReadArticle"
+import EditArticlePage from "./pages/EditArticle"
 
 const AuthWrapper = () => {
   const [isAuth, setIsAuth] = useState<boolean | null>(null);
@@ -37,12 +39,20 @@ const AuthWrapper = () => {
         element={isAuth ? <Layout><EmployeesPage /></Layout> : <Navigate to="/login" />}
       />
       <Route
-        path="/knowledge"
+        path="/knowlege"
         element={isAuth ? <Layout><KnowledgePage /></Layout> : <Navigate to="/login" />}
       />
       <Route
-        path="/knowledge/article/create"
+        path="/knowlege/article/create"
         element={isAuth ? <Layout><CreateArticlePage /></Layout> : <Navigate to="/login" />}
+      />
+      <Route
+        path="/knowlege/article/:article_id"
+        element={isAuth ? <Layout><ArticleViewPage /></Layout> : <Navigate to="/login" />}
+      />
+      <Route
+        path="/knowlege/article/edit/:article_id"
+        element={isAuth ? <Layout><EditArticlePage /></Layout> : <Navigate to="/login" />}
       />
     </Routes>
   );

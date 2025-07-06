@@ -2,10 +2,10 @@ from fastapi import Request
 from fastapi.exceptions import HTTPException
 
 def get_current_user(request: Request):
-    if not hasattr(request.state, "user_email"):
+    if not hasattr(request.state, "user_id"):
         raise HTTPException(status_code=401, detail="Unauthorized")
     return {
-        "email": request.state.user_email,
+        "user_id": request.state.user_id,
         "role": request.state.role,
     }
 
