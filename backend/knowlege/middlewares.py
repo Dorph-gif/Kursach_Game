@@ -40,7 +40,7 @@ class AuthMiddleware(BaseHTTPMiddleware):
         
         if request.method == "OPTIONS":
             headers = {
-                "Access-Control-Allow-Origin": settings.FRONTEND_HOME,
+                "Access-Control-Allow-Origin": "*",
                 "Access-Control-Allow-Methods": "GET,POST,PUT,DELETE,PATCH,OPTIONS",
                 "Access-Control-Allow-Headers": "Authorization,Content-Type",
                 "Access-Control-Allow-Credentials": "true",

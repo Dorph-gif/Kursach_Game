@@ -22,14 +22,14 @@ class UserRead(User):
         from_attributes = True
 
 class UserUpdate(BaseModel):
-    name: Optional[str]
-    surname: Optional[str]
-    patronymic: Optional[str]
-    phone: Optional[str]
-    telegram_link: Optional[str]
-    post: Optional[str]
-    team: Optional[str]
-    role: Optional[UserRole]
+    name: Optional[str] = None
+    surname: Optional[str] = None
+    patronymic: Optional[str] = None
+    phone: Optional[str] = None
+    telegram_link: Optional[str] = None
+    post: Optional[str] = None
+    team: Optional[str] = None
+    role: Optional[UserRole] = None
     status: Optional[UserStatus] = None
 
 class UserFilter(BaseModel):
@@ -46,3 +46,5 @@ class UserFilter(BaseModel):
     limit: Optional[int] = 100
     offset: Optional[int] = 0
 
+class UpdateStatus(BaseModel):
+    status: UserStatus

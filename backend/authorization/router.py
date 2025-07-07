@@ -2,13 +2,25 @@ from fastapi import APIRouter, Response, Request, HTTPException, status, Cookie,
 from fastapi.responses import RedirectResponse, JSONResponse
 import secrets
 import time
+import os
+import logging
 
 from backend.authorization.yandex_client import build_auth_url, exchange_code_for_token, get_user_info
 from backend.authorization.jwt_utils import create_access_token, decode_access_token
 
-from backend.authorization.database.orm_db import OrmDatabaseManager, get_db_manager
-from backend.authorization.models import User, UserRead, UserUpdate, UserFilter
+from backend.authorization.database.orm_db import OrmDatabaseManager, get_db_manager, UserStatus
+from backend.authorization.models import User, UserRead, UserUpdate, UserFilter, UpdateStatus
 from backend.authorization.config import settings
+
+LOG_FILE = os.path.join("logs", "users.log")
+
+logging.basicConfig(
+    level=logging.INFO,
+    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
+    filename=LOG_FILE,
+)
+
+logger = logging.getLogger(__name__)
 
 auth_router = APIRouter(prefix="/api/auth")
 
@@ -33,14 +45,14 @@ async def callback(
     user = await db_manager.get_user_by_email(email)
     if not user:
         user = User(
-            name="",
-            surname="",
-            patronymic="",
+            name="anonim",
+            surname="anonimov",
+            patronymic="anonimovich",
             email=email,
-            phone="",
-            telegram_link="",
-            post="",
-            team="",
+            phone="guest",
+            telegram_link="guest",
+            post="guest",
+            team="guest",
             role="user",
         )
         user = await db_manager.register_user(user)
@@ -51,8 +63,8 @@ async def callback(
     await db_manager.save_refresh_token(user_id=user.id, refresh_token=refresh_token)
 
     response = RedirectResponse(url=settings.FRONTEND_HOME)
-    response.set_cookie("access_token", access_token, httponly=True, secure=True, max_age=settings.ACCESS_TOKEN_EXPIRE_SEC)
-    response.set_cookie("refresh_token", refresh_token, httponly=True, secure=True, max_age=settings.REFRESH_TOKEN_EXPIRE_SEC)
+    response.set_cookie("access_token", access_token, httponly=True, secure=True, samesite="none", max_age=settings.ACCESS_TOKEN_EXPIRE_SEC)
+    response.set_cookie("refresh_token", refresh_token, httponly=True, secure=True, samesite="none", max_age=settings.REFRESH_TOKEN_EXPIRE_SEC)
     return response
 
 @auth_router.post("/refresh")
@@ -113,6 +125,27 @@ async def update_current_user(
     db_manager: OrmDatabaseManager = Depends(get_db_manager),
 ):
     user_id = request.state.user_id
+    user = await db_manager.get_user_by_id(user_id)
+    if not user:
+        raise HTTPException(status_code=404, detail="Пользователь не найден")
+
+    updated = await db_manager.update_user(user_id, update)
+    return updated
+
+@user_router.patch("/me/update_status", response_model=UserRead)
+async def update_current_user_status(
+    status: UpdateStatus,
+    request: Request,
+    db_manager: OrmDatabaseManager = Depends(get_db_manager),
+):
+    user_id = request.state.user_id
+
+    status_enum = status.status
+
+    update = UserUpdate (
+        status=status_enum
+    )
+
     user = await db_manager.get_user_by_id(user_id)
     if not user:
         raise HTTPException(status_code=404, detail="Пользователь не найден")

@@ -16,6 +16,7 @@ class Settings(BaseSettings):
 
 
     FRONTEND_HOME: str = "http://localhost:3000/"
+    # FRONTEND_HOME: str = "https://ba7a-188-214-36-34.ngrok-free.app/"
     CORPORATE_DOMAIN: str = "@yourcompany.ru"
 
     class Config:

@@ -33,7 +33,7 @@ async def lifespan(app: FastAPI):
         raise HTTPException(status_code=500, detail="Database initialization failed")
     yield
 
-    await delete_tables()
+    # await delete_tables()
 
     logger.info("Shutting down the user service...")
 
@@ -45,6 +45,7 @@ app.add_middleware(AuthMiddleware)
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["http://localhost:3000"],
+    # allow_origins=["*"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
